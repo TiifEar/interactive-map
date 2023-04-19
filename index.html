@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="src/css/style.css">
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script type="text/javascript" src="src/js/addm.js"></script>
+    <title>interactive map</title>
+</head>
+<body>
+    <div class="controll">
+        <h2>Фільтри</h2>
+        <ul>
+            <li><input type="checkbox" id="stash" onclick="filterHidd(id)" checked>Сховки</li>
+            <li><input type="checkbox" id="stashStrilec" onclick="filterHidd(id)" checked>Сховки Стрільця</li>
+        </ul>
+        <select name="мова" id="cars" onchange="showSelectedValue()">
+            <option value="uk">ua</option>
+            <option value="en">en</option>
+          </select>
+    </div>
+    <div class="container">
+        <img src="src/img/background/Zaton.jpg" alt="asafas" class="back">
+    </div>
+    
+</body>
+</html>
