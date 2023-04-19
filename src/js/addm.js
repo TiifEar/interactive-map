@@ -81,7 +81,19 @@ markElements.forEach(element => {
 
 //Завантаження данних
 function loadDescription(){
-  return fetch('https://api.jsonbin.io/v3/b/64403ed0ace6f33a220eb7ea?meta=false')
+  var select = document.getElementById("cars");
+  var selectedValue = select.options[select.selectedIndex].value;
+  let lang
+  switch (selectedValue) {
+    case "en":
+      lang="64406981ebd26539d0aea619"
+      break;
+    case "uk":
+      lang="64406972c0e7653a05a7e624"
+      break;
+  }
+  console.log(selectedValue)
+  return fetch('https://api.jsonbin.io/v3/b/'+lang+'?meta=false')
     .then(response => {
       if (response.ok) {
         return response.json();
@@ -118,9 +130,7 @@ function loadMarks(){
 function start(){
   isloading=true
   loadMarks().then(() => {
-    // console.log(marks);
     loadDescription().then(() => {
-      // console.log(descriptions);
       for (const key in marks) {
         addStashes(x=marks[key].coordinates.x, y=marks[key].coordinates.y, img=marks[key].img, description=descriptions[key], type=marks[key].type)
       }
@@ -134,6 +144,5 @@ start();
 
 
 function showSelectedValue() {
-  var select = document.getElementById("cars");
-  var selectedValue = select.options[select.selectedIndex].value;
+  start()
 }
