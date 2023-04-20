@@ -1,59 +1,63 @@
-*{
+* {
     margin: 0;
     padding: 0;
-}
-body{
+  }
+  
+  body {
     background-color: dimgray;
     display: flex;
     justify-content: center;
     align-items: center;
-}
-/* map */
-.container {
+  }
+  
+  /* map */
+  .container {
     position: relative;
-}
-.back{
-    max-width: 100vw;
-    max-height: 100vh;
-}
-.mark {
+  }
+  
+  .mark {
     position: absolute;
     border-radius: 50%;
     border-style: solid;
     width: 15px;
     height: 15px;
     border-color: green;
-}
-.markIco{
+    z-index: 10;
+  }
+  
+  .markIco {
     width: 15px;
     height: 15px;
-    z-index: 3;
-}
-.description{
+  }
+  
+  .description {
     display: flex;
     flex-wrap: nowrap;
-
     width: fit-content;
     background-color: darkslategray;
     border-radius: 10px;
-    z-index: 2;
-}
-.description p{
+    z-index: 1;
+  }
+  
+  .description p {
     color: wheat;
     padding-right: 10px;
     padding-left: 10px;
-}
-.description img{
+  }
+  
+  .description img {
     max-width: 10vw;
     max-height: 10vw;
-}
-
-/* control */
-.controll{
+  }
+  
+  /* control */
+  .controll {
     position: absolute;
     top: 0;
     left: 0;
-}
-.hidd{
+  }
+  
+  .hidd {
     display: none;
-}
+  }
+  

@@ -79,34 +79,26 @@ markElements.forEach(element => {
 
 }
 
-//Завантаження данних
-function loadDescription(){
-  var select = document.getElementById("cars");
-  var selectedValue = select.options[select.selectedIndex].value;
-  let lang
-  switch (selectedValue) {
-    case "en":
-      lang="64406981ebd26539d0aea619"
-      break;
-    case "uk":
-      lang="64406972c0e7653a05a7e624"
-      break;
-  }
-  console.log(selectedValue)
-  return fetch('https://api.jsonbin.io/v3/b/'+lang+'?meta=false')
-    .then(response => {
-      if (response.ok) {
-        return response.json();
-      }
+
+
+async function loadDescription() {
+  const lang = {
+    en: "64406981ebd26539d0aea619",
+    uk: "64406972c0e7653a05a7e624"
+  }[document.getElementById("cars").value];
+
+  try {
+    const response = await fetch(`https://api.jsonbin.io/v3/b/${lang}?meta=false`);
+    if (!response.ok) {
       throw new Error('Network response was not ok.');
-    })
-    .then(data => {
-      descriptions = data;
-    })
-    .catch(error => {
-      console.error('There was a problem fetching the data:', error);
-      alert("Нажаль трапилась якась проблема");
-    });
+    }
+    const data = await response.json();
+    descriptions = data;
+    console.log('Data loaded successfully:', descriptions);
+  } catch (error) {
+    console.error('There was a problem fetching the data:', error);
+    alert('Sorry, there was a problem loading the data. Please try again later.');
+  }
 }
 
 function loadMarks(){
@@ -134,10 +126,11 @@ function start(){
       for (const key in marks) {
         addStashes(x=marks[key].coordinates.x, y=marks[key].coordinates.y, img=marks[key].img, description=descriptions[key], type=marks[key].type)
       }
+      isloading=false
     });
   });
-  isloading=false
 }
+
 
 start();
 
