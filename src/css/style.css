@@ -22,8 +22,8 @@
     width: 15px;
     height: 15px;
     border-color: green;
-    z-index: 10;
-  }
+    z-index: 3;
+}
   
   .markIco {
     width: 15px;
