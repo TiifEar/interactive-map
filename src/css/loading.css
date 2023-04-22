@@ -1,0 +1,36 @@
+@keyframes rotate {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  .loading-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: flex;
+    width: 100vw;
+    height: 100vh;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    z-index: 1;
+  } 
+
+  .loading {
+    animation: rotate 2s linear infinite;
+    width: 50vh;
+    height: 50vh;
+  }
+
+  .hidd {
+    display: none;
+  }
+
+  .hiddLoad{
+    display: none;
+  }
+ 

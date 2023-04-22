@@ -1,3 +1,10 @@
+const content= document.getElementsByClassName('content')
+const controll =document.getElementById("controll")
+const loadingIco = document.getElementById("loading")
+const showHidd = document.getElementById("showHidd");
+const filterControl = document.getElementById("filterControl");
+const width = filterControl.offsetWidth;
+
 let isloading
 let marks = {}
 let descriptions = {}
@@ -58,7 +65,7 @@ function createMarkersDescription(description, img){
 }
 
 //створення мітки на мапі
-function addStashes(x, y, img, description, type) {
+function addStashes(id, x, y, img, description, type) {
     const div = document.createElement("div");            //Створення контейнеру
     div.classList.add('mark', type);                      //Прив'язка класів перший відповідає за стилізацію другий за фільтрацію та тип позначки
     //Встановлення координат
@@ -101,6 +108,8 @@ function hiddAfterChangeLang(){
       filterHidd(checkbox.id)
     }
   });
+  isloading=false
+  loading(isloading)
 }
 
 //видалення існуючих міток. наявне через криво написану побудову міток та відсутність можливості змінити лише опис при зміні мови
@@ -119,20 +128,13 @@ function changeLang() {
 
 //приховування блоку фільтрів
 function moveConroll() {
-  const filterControl = document.getElementById("filterControl");
-  const controll = document.getElementById("controll");
-  const showHidd = document.getElementById("showHidd");
-  const width = filterControl.offsetWidth;
-  
   if (filterControl.classList.contains('Controllhidd')) {
-    filterControl.classList.remove('Controllhidd');
-    showHidd.innerHTML = "&#60;";
     controll.style.left = 0;
   } else {
-    filterControl.classList.add('Controllhidd');
-    showHidd.innerHTML = "&#62;";
-    controll.style.left = -width + "px";
+    controll.style.left = -width -20+ "px";
   }
+  showHidd.querySelector("p").classList.toggle('flip')
+  filterControl.classList.toggle('Controllhidd');
 }
 
 
@@ -143,8 +145,7 @@ async function loadDescription() {
   const lang = {
     en: "64406981ebd26539d0aea619",
     uk: "64406972c0e7653a05a7e624"
-  }[document.getElementById("cars").value];
-
+  }[document.getElementById("langs").value];
   try {
     const response = await fetch(`https://api.jsonbin.io/v3/b/${lang}?meta=false`);
     if (!response.ok) {
@@ -157,6 +158,7 @@ async function loadDescription() {
     alert('Sorry, there was a problem loading the data. Please try again later.');
   }
 }
+
 
 //завантаження міток
 function loadMarks(){
@@ -176,26 +178,34 @@ function loadMarks(){
     });
 }
 
-//Створення міток на карті
-function start(){
-  isloading=true
-  loadMarks().then(() => {
-    loadDescription().then(() => {
-      for (const key in marks) {
-        addStashes(x=marks[key].coordinates.x, y=marks[key].coordinates.y, img=marks[key].img, description=descriptions[key], type=marks[key].type)
-      }
-      hiddAfterChangeLang()   //виклик методу що приховає мітки відповідно до фільтру
-      isloading=false
-    });
-  });
 
+
+
+
+// Створення міток на карті
+function start(isloading){
+  isloading=true
+  loading(isloading)
+  
+  Promise.all([this.loadMarks(), this.loadDescription()]).then(()=> {
+    for (const key in marks) {
+            addStashes(id=marks[key], x=marks[key].coordinates.x, y=marks[key].coordinates.y, img=marks[key].img, description=descriptions[key], type=marks[key].type)
+          }
+          hiddAfterChangeLang()
+          
+  })
+}
+
+function loading(isloading){
+  if (isloading)
+  {
+    loadingIco.classList.remove('hiddLoad')
+    content[0].classList.add('hidd')
+  }
+  else {
+    loadingIco.classList.add('hiddLoad')
+    content[0].classList.remove('hidd')
+  }
 }
 
 start();
-
-
-
-
-
-
-

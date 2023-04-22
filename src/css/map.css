@@ -1,0 +1,45 @@
+.container {
+    position: relative;
+    width: fit-content;
+  }
+  .back{
+    max-width: 100%;
+    z-index: 3;
+  }
+  
+  /* marks */
+  .mark {
+    position: absolute;
+    border-radius: 50%;
+    width: 15px;
+    height: 15px;
+}
+  
+  .markIco {
+    width: 15px;
+    height: 15px;
+    cursor: pointer;
+  }
+  
+  /* marks info */
+  .description {
+    display: flex;
+    flex-wrap: nowrap;
+    width: fit-content;
+    background-color: darkslategray;
+    border-radius: 10px;
+  }
+  
+  .description p {
+    color: wheat;
+    padding-right: 10px;
+    padding-left: 10px;
+    z-index: 1;
+  }
+  
+  .description img {
+    max-width: 10vw;
+    max-height: 10vw;
+    z-index: 1;  
+  }
+ 

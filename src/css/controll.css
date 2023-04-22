@@ -1,0 +1,44 @@
+.controll {
+    display: flex;
+    align-items: stretch;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 2;
+    color: aliceblue;
+    background-color:rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(1.5rem);
+    transition: left 0.5s ease-out;
+    border-bottom-right-radius: 30px;
+  }
+  .filterControl{
+    margin: 10px;
+  }
+  .filterControl ul{
+    list-style-type: none;
+  }
+
+  
+
+  .Controllhidd {
+    color: aliceblue;
+  }
+
+  
+  #showHidd{
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    background-color:rgba(0, 0, 0, 0.2);
+    border-bottom-right-radius: 30px;
+    cursor: pointer;    
+  }
+
+
+  #flippable {
+    transition: transform 0.5s ease-in-out;
+  }
+  
+  .flip {
+    transform: rotate(180deg);
+  }

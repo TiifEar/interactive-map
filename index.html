@@ -4,31 +4,41 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
     <link rel="stylesheet" href="src/css/style.css">
+    
+    <link rel="stylesheet" href="src/css/controll.css">
+    <link rel="stylesheet" href="src/css/map.css">
+    <link rel="stylesheet" href="src/css/loading.css">
     <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-    <script type="text/javascript" src="src/js/main.js"></script>
+    
     <title>interactive map</title>
 </head>
 <body>
-    <div class="controll" id="controll">
-        <div id="filterControl" class="filterControl">
-            <h2>Фільтри</h2>
-        <ul>
-            <li><input type="checkbox" id="stash" onclick="filterHidd(id)" checked>Сховки</li>
-            <li><input type="checkbox" id="stashStrilec" onclick="filterHidd(id)" checked>Сховки Стрільця</li>
-        </ul>
-        <select name="мова" id="cars" onchange="changeLang()">
-            <option value="uk">ua</option>
-            <option value="en">en</option>
-          </select>
+    <div class="loading-container" id="loading">
+        <img src="https://i.ibb.co/9V5x2TH/pngwing-com.png" class="loading">
+      </div>
+    <div class="content">
+        <div class="controll" id="controll">
+            <div id="filterControl" class="filterControl">
+                <h2>Фільтри</h2>
+            <ul>
+                <li><input type="checkbox" id="stash" onclick="filterHidd(id)" checked>Сховки</li>
+                <li><input type="checkbox" id="stashStrilec" onclick="filterHidd(id)" checked>Сховки Стрільця</li>
+            </ul>
+            <select name="мова" id="langs" onchange="changeLang()">
+                <option value="uk">ua</option>
+                <option value="en">en</option>
+              </select>
+            </div>
+            <div id="showHidd" onclick="moveConroll()" >
+                <p id="flippable">&#60;</p>
+            </div>
         </div>
-        <div id="showHidd" onclick="moveConroll()">
-            <p>&#60;</p>
+        <div class="container">
+            <img src="src/img/background/Zaton.jpg" alt="asafas" class="back">
         </div>
     </div>
-    <div class="container">
-        <img src="src/img/background/Zaton.jpg" alt="asafas" class="back">
-    </div>
-    
+    <script type="text/javascript" src="src/js/main.js"></script>
 </body>
 </html>
