@@ -20,6 +20,7 @@
     z-index: 2;
   }
   
+  /* marks */
   .mark {
     position: absolute;
     border-radius: 50%;
@@ -28,24 +29,19 @@
     height: 15px;
     border-color: green;
 }
-
-.position{
-  z-index: 2;
-}
   
   .markIco {
     width: 15px;
     height: 15px;
-    z-index: 2;
   }
   
+  /* marks info */
   .description {
     display: flex;
     flex-wrap: nowrap;
     width: fit-content;
     background-color: darkslategray;
     border-radius: 10px;
-    z-index: 1;
   }
   
   .description p {
@@ -76,6 +72,7 @@
     backdrop-filter: blur(1.5rem);
     transition: left 0.3s ease-out;
   }
+
   .filterControl{
     padding-right: 15px;
   }
@@ -83,9 +80,11 @@
     list-style-type: none;
   }
 
+  /* hidd marks and descriptions */
   .hidd {
     display: none;
   }
+
   .Controllhidd {
     
   }

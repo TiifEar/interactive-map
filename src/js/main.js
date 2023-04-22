@@ -1,21 +1,23 @@
-
 let isloading
 let marks = {}
 let descriptions = {}
 
+//створення міток
+
+//створення події для відображення опису мітки
 function createEvent(ico){
   ico.addEventListener('mouseover', (event) => {
-    event.target.parentNode.parentNode.querySelector('.description').classList.remove('hidd')
+    event.target.parentNode.querySelector('.description').classList.remove('hidd')
   });
   ico.addEventListener('mouseout', (event) => {
-    event.target.parentNode.parentNode.querySelector('.description').classList.add('hidd')
+    event.target.parentNode.querySelector('.description').classList.add('hidd')
   });
 return ico
 }
 
+//створення позначки для мітки
 function createMarkersIco(type){
   let ico = document.createElement("img")
-  let div = document.createElement("div")
   switch (type) {
     case "stashStrilec":
       ico.src="https://i.ibb.co/SrQt6YV/image.webp"
@@ -26,16 +28,17 @@ function createMarkersIco(type){
   }
   ico.classList.add('markIco')
   ico=createEvent(ico)
-  div.appendChild(ico)
-  div.classList.add('position')
-return div
+return ico
 }
 
+//створення скріншоту для мітки
 function addScreanToDescription(img){
   let screan= document.createElement("img")
   screan.src=img
   return screan
 }
+
+//створення текстового опису для мітки
 function addTextToDescription(description){
   let textD = document.createElement("p");
   textD.appendChild(document.createTextNode(description))
@@ -43,6 +46,7 @@ function addTextToDescription(description){
   return textD
 }
 
+//створення контейнеру з описом та скріншотом для мітки
 function createMarkersDescription(description, img){
   let div = document.createElement("div")
   div.classList.add('hidd','description')
@@ -53,6 +57,7 @@ function createMarkersDescription(description, img){
   return div
 }
 
+//створення мітки на мапі
 function addStashes(x, y, img, description, type) {
     const div = document.createElement("div");            //Створення контейнеру
     div.classList.add('mark', type);                      //Прив'язка класів перший відповідає за стилізацію другий за фільтрацію та тип позначки
@@ -69,21 +74,71 @@ function addStashes(x, y, img, description, type) {
     document.getElementsByClassName('container')[0].appendChild(div);
   }
 
+
+//налаштування фільтрів
+
+//приховування міток через фільтр
 function filterHidd(id) {
-const markElements = document.querySelectorAll("."+id);
-console.log(id)
+  const markElements = document.querySelectorAll("."+id);
+  const checkBFilter = document.getElementById(id)
 
-markElements.forEach(element => {
-  if (element.classList.contains('hidd')) {
-    element.classList.remove('hidd')
+  if (checkBFilter.checked){
+    markElements.forEach(element =>{
+      element.classList.remove('hidd')
+    })
   }
-  else {element.classList.add('hidd');}
-});
+  else{
+    markElements.forEach(element =>{
+      element.classList.add('hidd')
+    })}
+}
 
+//приховування міток після зміни мови відповідно до обраних фільтрів
+function hiddAfterChangeLang(){
+  const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+  checkboxes.forEach((checkbox) => {
+    if (!checkbox.checked) {
+      filterHidd(checkbox.id)
+    }
+  });
+}
+
+//видалення існуючих міток. наявне через криво написану побудову міток та відсутність можливості змінити лише опис при зміні мови
+function clearMarks(){
+  const elements = document.querySelectorAll('.mark');
+  elements.forEach((element) => {
+    element.remove();
+  });
+}
+
+//обробник зміни мови
+function changeLang() {
+  clearMarks()          //видалення старих міток
+  start()               //повторне завантаження міток
+}
+
+//приховування блоку фільтрів
+function moveConroll() {
+  const filterControl = document.getElementById("filterControl");
+  const controll = document.getElementById("controll");
+  const showHidd = document.getElementById("showHidd");
+  const width = filterControl.offsetWidth;
+  
+  if (filterControl.classList.contains('Controllhidd')) {
+    filterControl.classList.remove('Controllhidd');
+    showHidd.innerHTML = "&#60;";
+    controll.style.left = 0;
+  } else {
+    filterControl.classList.add('Controllhidd');
+    showHidd.innerHTML = "&#62;";
+    controll.style.left = -width + "px";
+  }
 }
 
 
+//завантаження данних
 
+//завантаження текстового опису міток
 async function loadDescription() {
   const lang = {
     en: "64406981ebd26539d0aea619",
@@ -97,13 +152,13 @@ async function loadDescription() {
     }
     const data = await response.json();
     descriptions = data;
-    console.log('Data loaded successfully:', descriptions);
   } catch (error) {
     console.error('There was a problem fetching the data:', error);
     alert('Sorry, there was a problem loading the data. Please try again later.');
   }
 }
 
+//завантаження міток
 function loadMarks(){
   return fetch('https://api.jsonbin.io/v3/b/64400dcbebd26539d0ae6cda?meta=false')
     .then(response => {
@@ -121,7 +176,7 @@ function loadMarks(){
     });
 }
 
-// запуск
+//Створення міток на карті
 function start(){
   isloading=true
   loadMarks().then(() => {
@@ -129,33 +184,18 @@ function start(){
       for (const key in marks) {
         addStashes(x=marks[key].coordinates.x, y=marks[key].coordinates.y, img=marks[key].img, description=descriptions[key], type=marks[key].type)
       }
+      hiddAfterChangeLang()   //виклик методу що приховає мітки відповідно до фільтру
       isloading=false
     });
   });
-}
 
+}
 
 start();
 
-function moveConroll() {
-  const filterControl = document.getElementById("filterControl");
-  const controll = document.getElementById("controll");
-  const showHidd = document.getElementById("showHidd");
-  const width = filterControl.offsetWidth;
-  
 
 
-  if (filterControl.classList.contains('Controllhidd')) {
-    filterControl.classList.remove('Controllhidd');
-    showHidd.innerHTML = "&#60;";
-    controll.style.left = 0;
-  } else {
-    filterControl.classList.add('Controllhidd');
-    showHidd.innerHTML = "&#62;";
-    controll.style.left = -width + "px";
-  }
-  }
 
-function showSelectedValue() {
-  start()
-}
+
+
+
