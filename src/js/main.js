@@ -162,7 +162,7 @@ async function loadDescription() {
 
 //завантаження міток
 function loadMarks(){
-  return fetch('https://api.jsonbin.io/v3/b/64400dcbebd26539d0ae6cda?meta=false')
+  return fetch('https://api.jsonbin.io/v3/b/64444c6a9d312622a3501336?meta=false')
     .then(response => {
       if (response.ok) {
         return response.json();

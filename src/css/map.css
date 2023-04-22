@@ -1,9 +1,10 @@
 .container {
     position: relative;
-    width: fit-content;
+    /* width: fit-content; */
   }
-  .back{
+  .map{
     max-width: 100%;
+    max-height: max-content;
     z-index: 3;
   }
   
