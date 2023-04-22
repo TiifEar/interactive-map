@@ -1,19 +1,21 @@
+
 let isloading
 let marks = {}
 let descriptions = {}
 
 function createEvent(ico){
   ico.addEventListener('mouseover', (event) => {
-    event.target.parentNode.querySelector('.description').classList.remove('hidd')
+    event.target.parentNode.parentNode.querySelector('.description').classList.remove('hidd')
   });
   ico.addEventListener('mouseout', (event) => {
-    event.target.parentNode.querySelector('.description').classList.add('hidd')
+    event.target.parentNode.parentNode.querySelector('.description').classList.add('hidd')
   });
 return ico
 }
 
 function createMarkersIco(type){
   let ico = document.createElement("img")
+  let div = document.createElement("div")
   switch (type) {
     case "stashStrilec":
       ico.src="https://i.ibb.co/SrQt6YV/image.webp"
@@ -22,10 +24,11 @@ function createMarkersIco(type){
       ico.src="https://i.ibb.co/SrQt6YV/image.webp"
       break;
   }
-  
   ico.classList.add('markIco')
   ico=createEvent(ico)
-return ico
+  div.appendChild(ico)
+  div.classList.add('position')
+return div
 }
 
 function addScreanToDescription(img){
@@ -134,7 +137,24 @@ function start(){
 
 start();
 
+function moveConroll() {
+  const filterControl = document.getElementById("filterControl");
+  const controll = document.getElementById("controll");
+  const showHidd = document.getElementById("showHidd");
+  const width = filterControl.offsetWidth;
+  
 
+
+  if (filterControl.classList.contains('Controllhidd')) {
+    filterControl.classList.remove('Controllhidd');
+    showHidd.innerHTML = "<";
+    controll.style.left = 0;
+  } else {
+    filterControl.classList.add('Controllhidd');
+    showHidd.innerHTML = ">";
+    controll.style.left = -width + "px";
+  }
+  }
 
 function showSelectedValue() {
   start()
