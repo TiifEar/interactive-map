@@ -147,11 +147,11 @@ function moveConroll() {
 
   if (filterControl.classList.contains('Controllhidd')) {
     filterControl.classList.remove('Controllhidd');
-    showHidd.innerHTML = "<";
+    showHidd.innerHTML = "&#60;";
     controll.style.left = 0;
   } else {
     filterControl.classList.add('Controllhidd');
-    showHidd.innerHTML = ">";
+    showHidd.innerHTML = "&#62;";
     controll.style.left = -width + "px";
   }
   }
