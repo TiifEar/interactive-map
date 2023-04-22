@@ -1,9 +1,14 @@
-const content= document.getElementsByClassName('content')
-const controll =document.getElementById("controll")
-const loadingIco = document.getElementById("loading")
-const showHidd = document.getElementById("showHidd");
-const filterControl = document.getElementById("filterControl");
-const width = filterControl.offsetWidth;
+const content= document.getElementsByClassName('content')       //контейнер для мапи та фільтрів
+
+//об'єкти фільтру
+const controll =document.getElementById("controll")             //блок фільтру та кнопки приховування
+const showHidd = document.getElementById("showHidd");           //кнопка для приховування та показу фільтрів
+const filterControl = document.getElementById("filterControl"); //фільтри
+const width = filterControl.offsetWidth;                        //ширина фільтрів
+
+const loadingIco = document.getElementById("loading")           //Блок загрузки
+
+
 
 let isloading
 let marks = {}
@@ -183,7 +188,7 @@ function loadMarks(){
 
 
 // Створення міток на карті
-function start(isloading){
+function start(){
   isloading=true
   loading(isloading)
   
